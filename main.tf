@@ -19,8 +19,8 @@ resource "aws_docdb_subnet_group" "main" {
   )
 }
 
-resource "aws_docdb_cluster_instance" "cluster_instances" {
-  identifier         = "docdb-instance"
-  cluster_identifier = aws_docdb_cluster.default.id
-  instance_class     = "db.r5.large"
-}
+#resource "aws_docdb_cluster_instance" "cluster_instances" {
+#  identifier         = "docdb-instance"
+#  cluster_identifier = aws_docdb_cluster.default.id
+#  instance_class     = "db.r5.large"
+#}
