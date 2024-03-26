@@ -7,9 +7,16 @@ resource "aws_docdb_cluster" "docdb" {
   backup_retention_period = var.backup_retention_period
   preferred_backup_window = var.preferred_backup_window
   skip_final_snapshot     = var.skip_final_snapshot
-  db_subnet_group_name = aws_docdb_subnet_group.main.name
-  kms_key_id = data.aws_kms_key.key.arn
-  storage_encrypted = var.storage_encrypted
+  db_subnet_group_name    = aws_docdb_subnet_group.main.name
+  kms_key_id              = data.aws_kms_key.key.arn
+  storage_encrypted       = var.storage_encrypted
+}
+
+resource "aws_docdb_cluster_instance" "cluster_instances" {
+  count              = var.no_of_instances
+  identifier         = "${var.env}-docdb-${count.index}"
+  cluster_identifier = aws_docdb_cluster.docdb.id
+  instance_class     = var.instance_class
 }
 
 resource "aws_docdb_subnet_group" "main" {
@@ -18,12 +25,6 @@ resource "aws_docdb_subnet_group" "main" {
 
   tags = merge(
     var.tags,
-    {Name = "${var.env}-subnet-group"}
+    { Name = "${var.env}-subnet-group" }
   )
 }
-
-#resource "aws_docdb_cluster_instance" "cluster_instances" {
-#  identifier         = "docdb-instance"
-#  cluster_identifier = aws_docdb_cluster.default.id
-#  instance_class     = "db.r5.large"
-#}
