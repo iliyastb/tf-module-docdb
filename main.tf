@@ -59,13 +59,13 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
 resource "aws_ssm_parameter" "docdb_url_catalogue" {
   name  = "${var.env}.docdb.url.catalogue"
   type  = "String"
-  value = "aa"
+  value = "mongodb://${data.aws_ssm_parameter.user.value}:${data.aws_ssm_parameter.pass.value}@${aws_docdb_cluster.docdb.endpoint}:27017/catalogue?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
 }
 
 resource "aws_ssm_parameter" "docdb_url_users" {
   name  = "${var.env}.docdb.url.users"
   type  = "String"
-  value = "aa"
+  value = "mongodb://${data.aws_ssm_parameter.user.value}:${data.aws_ssm_parameter.pass.value}@${aws_docdb_cluster.docdb.endpoint}:27017/users?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
 }
 
 resource "aws_ssm_parameter" "docdb_endpoint" {
