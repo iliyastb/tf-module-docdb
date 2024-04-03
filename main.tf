@@ -28,3 +28,30 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
   cluster_identifier = aws_docdb_cluster.docdb.id
   instance_class     = var.instance_class
 }
+
+resource "aws_ssm_parameter" "docdb_url_catalogue" {
+  name  = "${var.env}.docdb.catalogue"
+  type  = "String"
+  value = "aa"
+}
+resource "aws_ssm_parameter" "docdb_url_users" {
+  name  = "${var.env}.docdb.users"
+  type  = "String"
+  value = "aa"
+}
+
+resource "aws_ssm_parameter" "docdb_endpoint" {
+  name  = "${var.env}.docdb.endpoint"
+  type  = "String"
+  value = aws_docdb_cluster.docdb.endpoint
+}
+resource "aws_ssm_parameter" "docdb_user" {
+  name  = "${var.env}.docdb.user"
+  type  = "String"
+  value = data.aws_ssm_parameter.user
+}
+resource "aws_ssm_parameter" "docdb_pass" {
+  name  = "${var.env}.docdb.pass"
+  type  = "String"
+  value = data.aws_ssm_parameter.pass
+}
