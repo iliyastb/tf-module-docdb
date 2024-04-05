@@ -14,8 +14,8 @@ resource "aws_docdb_cluster" "docdb" {
 }
 
 resource "aws_security_group" "main" {
-  name        = "${var.env}-docdb"
-  description = "${var.env}-docdb"
+  name        = "docdb-${var.env}"
+  description = "docdb-${var.env}"
   vpc_id      = var.vpc_id
 
   ingress {
