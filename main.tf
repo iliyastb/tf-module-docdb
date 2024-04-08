@@ -62,8 +62,8 @@ resource "aws_ssm_parameter" "docdb_url_catalogue" {
   value = "mongodb://${data.aws_ssm_parameter.user.value}:${data.aws_ssm_parameter.pass.value}@${aws_docdb_cluster.docdb.endpoint}:27017/catalogue?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
 }
 
-resource "aws_ssm_parameter" "docdb_url_users" {
-  name  = "${var.env}.docdb.url.users"
+resource "aws_ssm_parameter" "docdb_url_user" {
+  name  = "${var.env}.docdb.url.user"
   type  = "String"
   value = "mongodb://${data.aws_ssm_parameter.user.value}:${data.aws_ssm_parameter.pass.value}@${aws_docdb_cluster.docdb.endpoint}:27017/users?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
 }
